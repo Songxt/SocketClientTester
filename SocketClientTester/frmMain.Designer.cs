@@ -23,7 +23,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txt_startnum = new System.Windows.Forms.TextBox();
-            this.llb_sendNum = new System.Windows.Forms.LinkLabel();
             this.btn_disconn = new System.Windows.Forms.Button();
             this.cbo_clientnum = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -51,6 +50,9 @@
             this.lsClients = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label5 = new System.Windows.Forms.Label();
+            this.llb_sendNum = new System.Windows.Forms.ToolStripStatusLabel();
+            this.button4 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -60,7 +62,7 @@
             // 
             // btn_conn
             // 
-            this.btn_conn.Location = new System.Drawing.Point(210, 27);
+            this.btn_conn.Location = new System.Drawing.Point(20, 182);
             this.btn_conn.Name = "btn_conn";
             this.btn_conn.Size = new System.Drawing.Size(64, 23);
             this.btn_conn.TabIndex = 3;
@@ -115,7 +117,6 @@
             // 
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txt_startnum);
-            this.groupBox1.Controls.Add(this.llb_sendNum);
             this.groupBox1.Controls.Add(this.btn_disconn);
             this.groupBox1.Controls.Add(this.cbo_clientnum);
             this.groupBox1.Controls.Add(this.btn_conn);
@@ -126,10 +127,9 @@
             this.groupBox1.Controls.Add(this.txt_sport);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(287, 213);
+            this.groupBox1.Size = new System.Drawing.Size(223, 213);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "设置连接参数及客户端数量";
             // 
             // label4
             // 
@@ -151,20 +151,9 @@
             this.txt_startnum.Text = "202201010001";
             this.toolTip1.SetToolTip(this.txt_startnum, "服务器端口号");
             // 
-            // llb_sendNum
-            // 
-            this.llb_sendNum.Location = new System.Drawing.Point(199, 110);
-            this.llb_sendNum.Name = "llb_sendNum";
-            this.llb_sendNum.Size = new System.Drawing.Size(64, 12);
-            this.llb_sendNum.TabIndex = 5;
-            this.llb_sendNum.TabStop = true;
-            this.llb_sendNum.Text = "0";
-            this.llb_sendNum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip1.SetToolTip(this.llb_sendNum, "统计发送次数(点击重置)");
-            // 
             // btn_disconn
             // 
-            this.btn_disconn.Location = new System.Drawing.Point(210, 65);
+            this.btn_disconn.Location = new System.Drawing.Point(120, 180);
             this.btn_disconn.Name = "btn_disconn";
             this.btn_disconn.Size = new System.Drawing.Size(64, 23);
             this.btn_disconn.TabIndex = 4;
@@ -210,7 +199,7 @@
             this.txt_recvc.Name = "txt_recvc";
             this.txt_recvc.ReadOnly = true;
             this.txt_recvc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_recvc.Size = new System.Drawing.Size(667, 142);
+            this.txt_recvc.Size = new System.Drawing.Size(620, 142);
             this.txt_recvc.TabIndex = 8;
             // 
             // groupBox2
@@ -224,14 +213,14 @@
             this.groupBox2.Controls.Add(this.txt_recvc);
             this.groupBox2.Location = new System.Drawing.Point(12, 231);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(681, 191);
+            this.groupBox2.Size = new System.Drawing.Size(634, 191);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "输出";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(518, 13);
+            this.button1.Location = new System.Drawing.Point(167, 16);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(64, 23);
             this.button1.TabIndex = 9;
@@ -263,6 +252,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.button4);
+            this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.button3);
             this.groupBox3.Controls.Add(this.button2);
             this.groupBox3.Controls.Add(this.chk_sendhex);
@@ -270,9 +261,9 @@
             this.groupBox3.Controls.Add(this.chk_auto);
             this.groupBox3.Controls.Add(this.btn_sendto);
             this.groupBox3.Controls.Add(this.txt_sendc);
-            this.groupBox3.Location = new System.Drawing.Point(305, 12);
+            this.groupBox3.Location = new System.Drawing.Point(241, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(388, 213);
+            this.groupBox3.Size = new System.Drawing.Size(405, 213);
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "发送";
@@ -303,7 +294,7 @@
             this.chk_sendhex.AutoSize = true;
             this.chk_sendhex.Checked = true;
             this.chk_sendhex.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_sendhex.Location = new System.Drawing.Point(128, 56);
+            this.chk_sendhex.Location = new System.Drawing.Point(165, 56);
             this.chk_sendhex.Name = "chk_sendhex";
             this.chk_sendhex.Size = new System.Drawing.Size(42, 16);
             this.chk_sendhex.TabIndex = 10;
@@ -349,12 +340,12 @@
             // txt_sendc
             // 
             this.txt_sendc.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.txt_sendc.Location = new System.Drawing.Point(8, 80);
+            this.txt_sendc.Location = new System.Drawing.Point(8, 144);
             this.txt_sendc.MaxLength = 1000;
             this.txt_sendc.Multiline = true;
             this.txt_sendc.Name = "txt_sendc";
             this.txt_sendc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_sendc.Size = new System.Drawing.Size(288, 127);
+            this.txt_sendc.Size = new System.Drawing.Size(382, 63);
             this.txt_sendc.TabIndex = 2;
             this.txt_sendc.Text = "AA";
             this.toolTip1.SetToolTip(this.txt_sendc, "发送文本，双击清除显示");
@@ -364,6 +355,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tlb_localip,
             this.tlb_time,
+            this.llb_sendNum,
             this.tlb_tip});
             this.statusStrip1.Location = new System.Drawing.Point(0, 425);
             this.statusStrip1.Name = "statusStrip1";
@@ -373,28 +365,37 @@
             // 
             // tlb_localip
             // 
-            this.tlb_localip.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken;
+            this.tlb_localip.AutoSize = false;
+            this.tlb_localip.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.tlb_localip.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
             this.tlb_localip.Name = "tlb_localip";
-            this.tlb_localip.Size = new System.Drawing.Size(59, 17);
+            this.tlb_localip.Size = new System.Drawing.Size(100, 17);
             this.tlb_localip.Text = "127.0.0.1";
             // 
             // tlb_time
             // 
-            this.tlb_time.BackColor = System.Drawing.Color.Black;
-            this.tlb_time.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.tlb_time.AutoSize = false;
+            this.tlb_time.BackColor = System.Drawing.SystemColors.Control;
+            this.tlb_time.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.tlb_time.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
+            this.tlb_time.ForeColor = System.Drawing.Color.Black;
             this.tlb_time.Name = "tlb_time";
-            this.tlb_time.Size = new System.Drawing.Size(126, 17);
+            this.tlb_time.Size = new System.Drawing.Size(150, 17);
             this.tlb_time.Text = "2019-01-15 08:08:08";
             // 
             // tlb_tip
             // 
             this.tlb_tip.AutoSize = false;
-            this.tlb_tip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.tlb_tip.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
+            this.tlb_tip.ForeColor = System.Drawing.Color.Black;
             this.tlb_tip.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.tlb_tip.Name = "tlb_tip";
-            this.tlb_tip.Size = new System.Drawing.Size(737, 17);
+            this.tlb_tip.Size = new System.Drawing.Size(572, 17);
             this.tlb_tip.Spring = true;
-            this.tlb_tip.Text = "欢迎使用";
             this.tlb_tip.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // timer1
@@ -412,9 +413,9 @@
             // 
             this.groupBox4.Controls.Add(this.lsClients);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox4.Location = new System.Drawing.Point(699, 0);
+            this.groupBox4.Location = new System.Drawing.Point(670, 0);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(238, 425);
+            this.groupBox4.Size = new System.Drawing.Size(267, 425);
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "设备列表";
@@ -424,16 +425,17 @@
             this.lsClients.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-            this.lsClients.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lsClients.FullRowSelect = true;
             this.lsClients.GridLines = true;
             this.lsClients.HideSelection = false;
-            this.lsClients.Location = new System.Drawing.Point(3, 17);
+            this.lsClients.Location = new System.Drawing.Point(6, 42);
             this.lsClients.Name = "lsClients";
-            this.lsClients.Size = new System.Drawing.Size(232, 405);
+            this.lsClients.Size = new System.Drawing.Size(249, 374);
             this.lsClients.TabIndex = 14;
             this.lsClients.UseCompatibleStateImageBehavior = false;
             this.lsClients.View = System.Windows.Forms.View.Details;
+            this.lsClients.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lsClients_ColumnClick);
+            this.lsClients.DrawColumnHeader += new System.Windows.Forms.DrawListViewColumnHeaderEventHandler(this.lsClients_DrawColumnHeader);
             // 
             // columnHeader1
             // 
@@ -443,7 +445,39 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "编号";
-            this.columnHeader2.Width = 90;
+            this.columnHeader2.Width = 100;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(128, 57);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(17, 12);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "ms";
+            // 
+            // llb_sendNum
+            // 
+            this.llb_sendNum.AutoSize = false;
+            this.llb_sendNum.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.llb_sendNum.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
+            this.llb_sendNum.ForeColor = System.Drawing.Color.Blue;
+            this.llb_sendNum.Name = "llb_sendNum";
+            this.llb_sendNum.Size = new System.Drawing.Size(100, 17);
+            this.llb_sendNum.Text = "0";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(307, 19);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 13;
+            this.button4.Text = "测试";
+            this.toolTip1.SetToolTip(this.button4, "立即发送");
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // frmMain
             // 
@@ -527,8 +561,6 @@
 
 		private global::System.Windows.Forms.Timer timer2_send;
 
-		private global::System.Windows.Forms.LinkLabel llb_sendNum;
-
 		private global::System.Windows.Forms.CheckBox chk_stopRecv;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -539,5 +571,8 @@
         private System.Windows.Forms.ListView lsClients;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolStripStatusLabel llb_sendNum;
+        private System.Windows.Forms.Button button4;
     }
 }

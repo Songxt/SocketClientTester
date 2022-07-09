@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -16,12 +18,14 @@ namespace SocketClientTester
     {
         private readonly ConcurrentDictionary<string, StateObject> Clients =
             new ConcurrentDictionary<string, StateObject>();
+
+        private readonly ConcurrentQueue<string> Numbers  =new ConcurrentQueue<string>();
         private long startNum = 202201010001;
         private int clientNum = 1;
         private int count;
         private string tcpserverip = "127.0.0.1";
         private string tcpserverport = "1024";
-
+        private ListViewColumnSorter lvwColumnSorter;
         public frmMain()
         {
             InitializeComponent();
@@ -33,7 +37,7 @@ namespace SocketClientTester
         {
             //btn_conn.Enabled = false;
             clientNum = int.Parse(cbo_clientnum.Text);
-            startNum = Convert.ToInt64(txt_startnum.Text) - 1;
+            startNum = Convert.ToInt64(txt_startnum.Text);
             tcpserverip = txt_sip.Text.Trim();
             tcpserverport = txt_sport.Text.Trim();
 
@@ -42,6 +46,10 @@ namespace SocketClientTester
                 var address = IPAddress.Parse(tcpserverip);
                 var remoteEP = new IPEndPoint(address, int.Parse(tcpserverport));
                 var TaskList = new Task[clientNum];
+                for (int i = 0; i < clientNum; i++)
+                {
+                    Numbers.Enqueue( (startNum + i).ToString());
+                }
 
                 for (var i = 0; i < TaskList.Length; i++)
                 {
@@ -54,9 +62,7 @@ namespace SocketClientTester
                             {
                                 var client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                                 client.Connect(remoteEP);
-                                Interlocked.Increment(ref startNum);
-                                Receive(client, startNum.ToString());
-
+                                Receive(client);
                                 flag = true;
                             }
                             catch
@@ -74,15 +80,17 @@ namespace SocketClientTester
             }
         }
 
-        private void Receive(Socket client, string num)
+        private void Receive(Socket client)
         {
             var state = new StateObject();
             state.workSocket = client;
             state.Key = client.LocalEndPoint.ToString();
+            Numbers.TryDequeue(out string num);
             state.value = num;
             client.BeginReceive(state.buffer, 0, StateObject.BufferSize, SocketFlags.None, ReceiveCallback, state);
-            Interlocked.Increment(ref count);
+
             Clients.TryAdd(state.Key, state);
+            Interlocked.Increment(ref count);
             Invoke(new Action(() =>
             {
                 llb_sendNum.Text = count.ToString();
@@ -213,10 +221,11 @@ namespace SocketClientTester
                 var interval = int.Parse(txt_automsec.Text);
                 timer2_send.Interval = interval;
                 timer2_send.Enabled = true;
-                tlb_tip.Text = "循环发送已启用...";
+                tlb_tip.Text = "循环发送已启用";
             }
             else
             {
+                tlb_tip.Text = "循环发送已停止";
                 timer2_send.Enabled = false;
             }
         }
@@ -289,7 +298,8 @@ namespace SocketClientTester
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-
+            lvwColumnSorter = new ListViewColumnSorter();
+            this.lsClients.ListViewItemSorter = lvwColumnSorter;
         }
 
         private class lsItem
@@ -317,7 +327,39 @@ namespace SocketClientTester
 
         private void button4_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(lsClients.Items.Count.ToString());
+            List<string> lisDupValues2 = Clients.Values.GroupBy(x => x.value).Where(x => x.Count() > 1).Select(x => x.Key).ToList();
+            MessageBox.Show(lisDupValues2.Count.ToString());
+        }
+
+        private void lsClients_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
+        {
+            e.Graphics.FillRectangle(Brushes.Yellow, e.Bounds);//采用特定颜色绘制标题列
+            e.DrawText();//采用默认方式绘制标题文本
+        }
+
+        private void lsClients_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (e.Column == lvwColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with these new sort options.
+            this.lsClients.Sort();
         }
     }
 }
